@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: predictive-maintenance-api
+
+spec:
+  replicas: 2
+
+  selector:
+    matchLabels:
+      app: predictive-maintenance-api
+
+  template:
+    metadata:
+      labels:
+        app: predictive-maintenance-api
+
+    spec:
+      containers:
+        - name: predictive-maintenance-api
+          image: 148018683739.dkr.ecr.us-east-1.amazonaws.com/industrial-predictive-maintenance:latest
+
+          ports:
+            - containerPort: 8000
+
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
