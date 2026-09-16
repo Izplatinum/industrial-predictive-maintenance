@@ -1,180 +1,72 @@
-\# Industrial Predictive Maintenance Platform
+# Industrial Predictive Maintenance Platform
 
+End-to-end predictive maintenance platform combining machine learning, data engineering, cloud infrastructure, Kubernetes, monitoring, autoscaling, and CI/CD.
 
+This project simulates a production-grade industrial monitoring system capable of detecting pump leakage conditions from machine sensor data and serving real-time predictions through a cloud-native architecture.
 
-End-to-end industrial predictive maintenance platform combining machine learning, data engineering, cloud infrastructure, Kubernetes, DevOps, monitoring, autoscaling, and CI/CD.
+---
 
+## Project Objective
 
+The goal of this project is to demonstrate how industrial sensor data can be transformed into a complete production-ready predictive maintenance solution.
 
-This project simulates a production-grade predictive maintenance workflow for industrial equipment using sensor data to detect different levels of pump leakage.
+The system was designed to:
 
+- analyze machine sensor data
+- engineer predictive features
+- store processed data in PostgreSQL
+- visualize operational metrics with Power BI
+- train and validate machine-learning models
+- identify pump leakage conditions
+- expose predictions through a REST API
+- containerize the inference service
+- deploy the application on Kubernetes
+- automatically scale workloads based on CPU usage
+- monitor infrastructure and application resources
+- automate deployments using CI/CD
+- provision cloud infrastructure using Terraform
 
+The emphasis is not only on model development, but on the complete lifecycle from raw industrial data to a deployed and monitored cloud application.
 
-\---
+---
 
+## Prediction Target
 
+The model classifies machine conditions into three pump leakage states:
 
-\## Project Overview
-
-
-
-The objective of this project is to build a complete industrial predictive maintenance system capable of:
-
-
-
-\- ingesting and storing machine sensor data
-
-\- performing exploratory data analysis
-
-\- engineering predictive features
-
-\- training and validating machine-learning models
-
-\- detecting pump leakage conditions
-
-\- serving predictions through a REST API
-
-\- containerizing the application
-
-\- deploying it to Kubernetes on AWS EKS
-
-\- automatically scaling workloads
-
-\- monitoring infrastructure and application metrics
-
-\- automating deployments with GitHub Actions
-
-
-
-The project was designed to simulate a real production environment rather than only a machine-learning notebook.
-
-
-
-\---
-
-
-
-\## Target Variable
-
-
-
-The machine-learning model predicts three pump leakage states:
-
-
-
-| Class | Status |
-
+| Class | Condition |
 |---|---|
-
 | 0 | No Leakage |
-
 | 1 | Weak Leakage |
-
 | 2 | Severe Leakage |
 
+---
 
+## Architecture
 
-\---
+```mermaid
+flowchart TD
+    A[Industrial Sensor Data] --> B[Data Preparation and EDA]
+    B --> C[Feature Engineering]
+    C --> D[(PostgreSQL)]
 
+    D --> E[Power BI Dashboard]
+    D --> F[Machine Learning Pipeline]
 
+    F --> G[Random Forest Model]
+    G --> H[FastAPI Prediction Service]
+    H --> I[Docker Container]
+    I --> J[Amazon ECR]
 
-\## Architecture
+    J --> K[Amazon EKS / Kubernetes]
 
+    K --> L[Multiple API Pods]
+    K --> M[Horizontal Pod Autoscaler]
+    K --> N[AWS Load Balancer]
+    K --> O[CloudWatch Container Insights]
 
+    N --> P[Public Prediction API]
 
-```text
-
-Industrial Sensor Data
-
-&#x20;       |
-
-&#x20;       v
-
-Data Preparation / EDA
-
-&#x20;       |
-
-&#x20;       v
-
-Feature Engineering
-
-&#x20;       |
-
-&#x20;       v
-
-PostgreSQL
-
-&#x20;  |          |
-
-&#x20;  |          +--------------------+
-
-&#x20;  v                               v
-
-Power BI                     Python / ML
-
-Dashboards                        |
-
-&#x20;                                 v
-
-&#x20;                        Random Forest Model
-
-&#x20;                                 |
-
-&#x20;                                 v
-
-&#x20;                             FastAPI
-
-&#x20;                                 |
-
-&#x20;                                 v
-
-&#x20;                              Docker
-
-&#x20;                                 |
-
-&#x20;                                 v
-
-&#x20;                          Amazon ECR
-
-&#x20;                                 |
-
-&#x20;                                 v
-
-&#x20;                        Amazon EKS
-
-&#x20;                     Kubernetes Cluster
-
-&#x20;                                 |
-
-&#x20;                  +--------------+--------------+
-
-&#x20;                  |                             |
-
-&#x20;                  v                             v
-
-&#x20;             Load Balancer              Horizontal Pod
-
-&#x20;                                        Autoscaler
-
-&#x20;                  |
-
-&#x20;                  v
-
-&#x20;           Public REST API
-
-&#x20;                  |
-
-&#x20;                  v
-
-&#x20;             CloudWatch
-
-&#x20;          Container Insights
-
-&#x20;                  |
-
-&#x20;                  v
-
-&#x20;           GitHub Actions
-
-&#x20;               CI/CD
-
+    Q[Terraform] --> K
+    R[GitHub Actions CI/CD] --> J
+    R --> K
